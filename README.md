@@ -1,18 +1,17 @@
 # PhoneArena
 
-PhoneArena — Mobile IDE & Dev Tool framework powered by ADAAD.
+**PhoneArena** — Mobile IDE & Dev Tool framework powered by **ADAAD**, the Autonomous Driven AI App Development system.
 
-Quick start:
-- Open in Pydroid3, run `python3 studio/main.py`
+> Build, evolve, repair, and deploy autonomous agents entirely on Android. Compact, Pydroid3-friendly, and fully modular.
 
-This scaffold is Pydroid3-friendly and includes:
-- studio/main.py (interactive + headless safe launcher)
-- arena_core (sandbox, runtime, repair agent skeleton)
-- framework templates
-- tools/packager.py
-- examples/example_agent.py
+---
 
-Runtime paths:
-- Projects: /storage/emulated/0/PhoneArena/projects/
-- User projects: /storage/emulated/0/PhoneArena/user_projects/
-- Agents: /storage/emulated/0/PhoneArena/agents/ and /storage/emulated/0/PhoneArena/examples/
+## Quick Start
+
+1. Install **Pydroid3** (Python 3 environment for Android).  
+2. Download or clone PhoneArena to `/storage/emulated/0/PhoneArena/`.  
+3. Open terminal or Pydroid3 console.  
+4. Run the main launcher:
+
+```bash
+python3 studio/main.py
