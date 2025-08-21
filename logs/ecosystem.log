@@ -1,0 +1,11 @@
+2025-08-20 18:19:40,884 | ERROR | Failed to import arena_core: cannot import name 'marketplace' from 'arena_core' (/storage/emulated/0/PhoneArena/arena_core/__init__.py)
+2025-08-20 18:29:35,816 | ERROR | Failed to import arena_core: cannot import name 'marketplace' from 'arena_core' (/storage/emulated/0/PhoneArena/arena_core/__init__.py)
+2025-08-20 18:31:32,554 | INFO | arena_core imported successfully.
+2025-08-20 18:34:45,062 | INFO | arena_core imported successfully.
+2025-08-20 18:34:45,095 | INFO | Agent: example_agent_beastv_1755729927.py | rc=1
+2025-08-20 18:52:15,434 | INFO | arena_core imported successfully.
+2025-08-20 18:52:28,440 | INFO | Agent: example_agent_beastv_1755729927.py | rc=1
+2025-08-20 19:01:10,923 | INFO | arena_core imported successfully.
+2025-08-20 19:02:45,409 | ERROR | Failed loading plugin example_super_plugin.py: No module named 'example_super_plugin'
+2025-08-20 19:02:45,415 | INFO | arena_core imported successfully.
+2025-08-20 19:02:56,137 | ERROR | Failed loading plugin example_super_plugin.py: No module named 'example_super_plugin'
