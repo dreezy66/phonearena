@@ -1,0 +1,32 @@
+{
+  "example_agent.py": [
+    "# Example agent for PhoneArena\ndef run():\n    print(\"Example agent running. It will succeed.\")\n    return 0\n\nif __name__ == \"__main__\":\n    run()"
+  ],
+  "example_agent_beastv_1755742227.py": [
+    "def run():\n    print(\"Example agent running. It will succeed.\")\n    return 0\n\nif __name__ == \"__main__\":\n    run()\n\n# === Beast signature ===\ndef beast_generation():\n    return 1755742227"
+  ],
+  "example_agent_beastv_1755742227_beastv_1755742346.py": [
+    "if __name__ == \"__main__\":\n    run()\n\n# === Beast signature ===\ndef beast_generation():\n    return 1755742227\n\n# === Beast signature ===\ndef beast_generation():\n    return 1755742346"
+  ],
+  "example_agent_beastv_1755742227_beastv_1755742346_beastv_1755742665.py": [
+    "def beast_generation():\n    return 1755742227\n\n# === Beast signature ===\ndef beast_generation():\n    return 1755742346\n\n# === Beast signature ===\ndef beast_generation():\n    return 1755742665"
+  ],
+  "example_agent_beastv_1755742227_beastv_1755742346_beastv_1755742665_beastv_1755745657.py": [
+    "def beast_generation():\n    return 1755742346\n\n# === Beast signature ===\ndef beast_generation():\n    return 1755742665\n\n# === Beast signature ===\ndef beast_generation():\n    return 1755745657"
+  ],
+  "example_agent_beastv_1755742227_beastv_1755742346_beastv_1755742665_beastv_1755746014.py": [
+    "def beast_generation():\n    return 1755742346\n\n# === Beast signature ===\ndef beast_generation():\n    return 1755742665\n\n# === Beast signature ===\ndef beast_generation():\n    return 1755746014"
+  ],
+  "example_agent_beastv_1755742227_beastv_1755742346_beastv_1755742665_beastv_1755746014_beastv_1755746232.py": [
+    "def beast_generation():\n    return 1755742665\n\n# === Beast signature ===\ndef beast_generation():\n    return 1755746014\n\n# === Beast signature ===\ndef beast_generation():\n    return 1755746232"
+  ],
+  "example_agent_beastv_1755742227_beastv_1755742346_beastv_1755742665_beastv_1755746014_beastv_1755746395.py": [
+    "def beast_generation():\n    return 1755742665\n\n# === Beast signature ===\ndef beast_generation():\n    return 1755746014\n\n# === Beast signature ===\ndef beast_generation():\n    return 1755746395"
+  ],
+  "example_agent_beastv_1755742227_beastv_1755742346_beastv_1755742665_beastv_1755746014_beastv_1755746787.py": [
+    "def beast_generation():\n    return 1755742665\n\n# === Beast signature ===\ndef beast_generation():\n    return 1755746014\n\n# === Beast signature ===\ndef beast_generation():\n    return 1755746787"
+  ],
+  "example_agent_beastv_1755742227_beastv_1755742346_beastv_1755742665_beastv_1755746014_beastv_1755746998.py": [
+    "def beast_generation():\n    return 1755742665\n\n# === Beast signature ===\ndef beast_generation():\n    return 1755746014\n\n# === Beast signature ===\ndef beast_generation():\n    return 1755746998"
+  ]
+}
