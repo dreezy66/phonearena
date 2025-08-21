@@ -1,0 +1,6 @@
+{
+  "headless_default": "score_then_beast_once",
+  "beast_cooldown_seconds": 10,
+  "auto_backup": true,
+  "backup_interval_minutes": 60
+}
