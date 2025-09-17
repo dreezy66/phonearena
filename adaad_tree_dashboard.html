@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>ADAAD Tree Dashboard</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <style>
+:root{
+  --bg:#0b1020; --panel:#0f1724; --accent:#00e6a6; --muted:#7aa2c7; --danger:#ff5c7c; --glass: rgba(255,255,255,0.04);
+  --mono: 'DejaVu Sans Mono', 'Courier New', monospace;
+}
+html,body{height:100%;background:linear-gradient(180deg,#071228 0%, #071020 100%);color:#d8eef3;font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif;margin:0}
+.header{padding:18px;display:flex;align-items:center;gap:16px}
+.logo{width:64px;height:64px;border-radius:10px;background:linear-gradient(135deg,#00e6a6,#00d0ff);display:flex;align-items:center;justify-content:center;font-weight:700;color:#021;box-shadow:0 6px 18px rgba(0,0,0,0.5)}
+.container{padding:16px}
+.panel{background:var(--panel);border-radius:10px;padding:12px;box-shadow: 0 6px 30px rgba(0,0,0,0.6);margin-bottom:12px}
+.tree pre{font-family:var(--mono);font-size:13px;white-space:pre-wrap}
+.badge{padding:3px 8px;border-radius:999px;background:var(--glass);color:var(--muted);font-size:12px;margin-left:8px}
+.tag-beast{color:#ffd166}
+.tag-improved{color:#ffb4a2}
+.tag-generated{color:#bde0fe}
+.tag-quarantine{color:var(--danger)}
+.health-ok{color:var(--accent)}
+.health-warn{color:#ffb86b}
+.search{margin-left:auto}
+.controls{display:flex;gap:8px;align-items:center}
+.small{font-size:12px;color:var(--muted)}
+.folder{cursor:pointer}
+.hidden{display:none}
+.summary{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.card{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:8px;border-radius:8px}
+</style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="logo">ADAAD</div>
+      <div>
+        <div style="font-weight:700;font-size:18px">ADAAD Project Explorer</div>
+        <div class="small">Focused runtime map + agent health</div>
+      </div>
+      <div class="search">
+        <input id="filter" placeholder="filter files / tags (beast, improved, quarantine)"/>
+      </div>
+    </div>
+    <div class="container">
+      <div class="panel summary" id="summary"></div>
+      <div class="panel tree" id="tree"><div><span class="folder"><strong>Aponi/</strong></span><div>
+<div style="margin-left:12px">
+&nbsp;&nbsp;&nbsp;&nbsp;<div><span class="folder"><strong>agents/</strong></span><div>
+<div style="margin-left:12px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div data-name="J.py" data-tags="ok">📄 J.py  <span class="badge health-ok">✅ OK</span> <span class='small'>164B</span></div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div data-name="reporter_agent.py" data-tags="warn">📄 reporter_agent.py  <span class="badge health-warn">⚠️ WARN</span> <span class='small'>997B</span></div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div data-name="surgical_developer.py" data-tags="ok">📄 surgical_developer.py  <span class="badge health-ok">✅ OK</span> <span class='small'>3KB</span></div>
+</div></div></div>
+&nbsp;&nbsp;&nbsp;&nbsp;<div><span class="folder"><strong>data/</strong></span><div>
+<div style="margin-left:12px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div data-name="agents_meta.json" data-tags="">📄 agents_meta.json   <span class='small'>3B</span></div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div data-name="patterns.json" data-tags="">📄 patterns.json   <span class='small'>3B</span></div>
+</div></div></div>
+&nbsp;&nbsp;&nbsp;&nbsp;<div><span class="folder"><strong>scripts/</strong></span><div>
+<div style="margin-left:12px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div data-name="systemd_service_template.service" data-tags="">📄 systemd_service_template.service   <span class='small'>235B</span></div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div data-name="termux_start.sh" data-tags="">📄 termux_start.sh   <span class='small'>155B</span></div>
+</div></div></div>
+</div></div></div></div>
+    </div>
+    <script>
+      // collapse/expand
+      document.addEventListener('click', function(ev){
+        if(ev.target.classList.contains('folder')){
+          var node = ev.target.nextElementSibling;
+          if(node) node.classList.toggle('hidden');
+        }
+      });
+      // filter
+      document.getElementById('filter').addEventListener('input', function(){
+        var q = this.value.trim().toLowerCase();
+        document.querySelectorAll('[data-name]').forEach(function(el){
+          var name = el.getAttribute('data-name').toLowerCase();
+          var tags = el.getAttribute('data-tags') || '';
+          var ok = !q || name.includes(q) || tags.includes(q);
+          el.style.display = ok ? '' : 'none';
+        });
+      });
+      // populate summary counts
+      (function(){
+        try {
+          var s = JSON.parse(document.getElementById('tree').getAttribute('data-summary') || '{}');
+          var container = document.getElementById('summary');
+          container.innerHTML = '';
+          var k = ['dirs','files','agents'];
+          k.forEach(function(key){
+            var card = document.createElement('div'); card.className='card';
+            card.innerHTML = '<div style="font-weight:700">'+(s[key]||0)+'</div><div class="small">'+key+'</div>';
+            container.appendChild(card);
+          });
+        } catch(e){}
+      })();
+    </script>
+  </body>
+</html>

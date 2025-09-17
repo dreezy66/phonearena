@@ -1,0 +1,18 @@
+{
+  "timestamp": "20250914090104",
+  "root": "/storage/emulated/0/ADAAD/Aponi",
+  "artifacts": [
+    {
+      "file": "aponi_release_20250914090104.tar.gz",
+      "size": 1140100,
+      "sha256": "c9f0e998a5124b796cbd53187395fc383cfeb34652b3e93740a731917f28209f"
+    },
+    {
+      "file": "aponi_release_20250914090104.zip",
+      "size": 1149493,
+      "sha256": "caae14786af2b2c99dbbf84b77da6d6cb044983dfc0845cc21afd00b6e2dae68"
+    }
+  ],
+  "total_archive_size_bytes": 2289593,
+  "files_count": 21
+}

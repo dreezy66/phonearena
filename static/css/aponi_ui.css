@@ -1,0 +1,300 @@
+/* ui.css — Aponi Dashboard Styles */
+/* Sleek, resourceful, CPU-light, and Aponi-flavored */
+
+:root {
+  --bg-dark: #0f1117;
+  --bg-panel: #1a1d25;
+  --bg-hover: #222630;
+  --border-light: #2c303c;
+  --text-primary: #e6e6e6;
+  --text-secondary: #9fa6b2;
+  --accent: #5ac8fa;
+  --accent-glow: rgba(90, 200, 250, 0.35);
+  --danger: #ff4d6d;
+  --success: #3ddc97;
+  --warning: #ffb400;
+  --radius: 10px;
+  --font-main: "Inter", "Segoe UI", sans-serif;
+}
+/* KPI Panel */
+.kpi-panel {
+  display: flex;
+  gap: 16px;
+  background: var(--surface, #f9f9f9);
+  border-radius: 12px;
+  padding: 8px 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  font-size: 13px;
+}
+.kpi-item { display: flex; flex-direction: column; align-items: flex-start; }
+.kpi-label { color: #555; font-size: 12px; }
+.kpi-value { font-weight: 600; color: #0a6; }
+
+/* Toasts */
+.aponi-toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #222;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  opacity: 0.95;
+  transition: opacity 0.5s ease;
+  z-index: 9999;
+}
+.aponi-toast.info { background: #333; }
+.aponi-toast.success { background: #0a6; }
+.aponi-toast.error { background: #c33; }
+.aponi-toast.fade-out { opacity: 0; }
+
+/* Modal */
+.aponi-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9998;
+}
+.aponi-modal {
+  background: #fff;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  overflow: hidden;
+  animation: fadeIn 0.2s ease;
+}
+.aponi-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  font-weight: 600;
+  border-bottom: 1px solid #eee;
+}
+.aponi-modal-close {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+.aponi-modal-content { padding: 14px; font-size: 14px; }
+.aponi-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 10px 14px;
+  border-top: 1px solid #eee;
+}
+
+/* Context Menu */
+.aponi-context-menu {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  padding: 6px 0;
+  z-index: 10000;
+  animation: fadeIn 0.1s ease;
+}
+.context-item {
+  padding: 6px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.context-item:hover { background: #f0f0f0; }
+
+/* Animations */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-main);
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Toolbar */
+#toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border-light);
+  padding: 6px 12px;
+}
+
+#toolbar img {
+  height: 28px;
+  margin-right: 12px;
+}
+
+#toolbar input[type="search"] {
+  flex: 1;
+  background: var(--bg-hover);
+  border: none;
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  margin-left: 12px;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+#toolbar input[type="search"]:focus {
+  outline: 1px solid var(--accent);
+  box-shadow: 0 0 6px var(--accent-glow);
+}
+
+/* Layout */
+#main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Explorer */
+#aponi-explorer {
+  width: 260px;
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border-light);
+  overflow-y: auto;
+  padding: 8px;
+  font-size: 14px;
+}
+
+#aponi-explorer .folder,
+#aponi-explorer .file {
+  padding: 3px 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#aponi-explorer .folder:hover,
+#aponi-explorer .file:hover {
+  background: var(--bg-hover);
+}
+
+#aponi-explorer .folder::before {
+  content: "📂";
+}
+
+#aponi-explorer .file::before {
+  content: "📄";
+}
+
+/* Editor area */
+#editor-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-dark);
+}
+
+#tabs {
+  display: flex;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.tab {
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+}
+
+.tab.active {
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+}
+
+#editor {
+  flex: 1;
+  padding: 12px;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1.4;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  border: none;
+  outline: none;
+  resize: none;
+  overflow: auto;
+}
+
+/* Console */
+#console {
+  height: 160px;
+  background: var(--bg-panel);
+  border-top: 1px solid var(--border-light);
+  padding: 8px;
+  font-family: monospace;
+  font-size: 13px;
+  color: var(--text-secondary);
+  overflow-y: auto;
+}
+
+/* Buttons */
+button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+button:hover {
+  background: #4ab1e3;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button.danger {
+  background: var(--danger);
+}
+
+button.success {
+  background: var(--success);
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}

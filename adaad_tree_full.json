@@ -1,0 +1,1055 @@
+{
+  "root": {
+    "path": ".",
+    "name": "Aponi",
+    "is_dir": true,
+    "size": 13010590,
+    "mtime": 1757914226.3264627,
+    "tag": null,
+    "health": null,
+    "sha256": null,
+    "children": [
+      {
+        "path": ".aponi_backups",
+        "name": ".aponi_backups",
+        "is_dir": true,
+        "size": 10314099,
+        "mtime": 1757858318.2289226,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": [
+          {
+            "path": ".aponi_backups/releases",
+            "name": "releases",
+            "is_dir": true,
+            "size": 8019579,
+            "mtime": 1757858696.0009224,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": [
+              {
+                "path": ".aponi_backups/releases/20250914084859",
+                "name": "20250914084859",
+                "is_dir": true,
+                "size": 1140098,
+                "mtime": 1757857740.4169226,
+                "tag": null,
+                "health": null,
+                "sha256": null,
+                "children": [
+                  {
+                    "path": ".aponi_backups/releases/20250914084859/aponi_release_20250914084859.tar.gz",
+                    "name": "aponi_release_20250914084859.tar.gz",
+                    "is_dir": false,
+                    "size": 1140098,
+                    "mtime": 1757857741.4289224,
+                    "tag": null,
+                    "health": null,
+                    "sha256": null,
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "path": ".aponi_backups/releases/20250914085835",
+                "name": "20250914085835",
+                "is_dir": true,
+                "size": 2294364,
+                "mtime": 1757858318.6169226,
+                "tag": null,
+                "health": null,
+                "sha256": null,
+                "children": [
+                  {
+                    "path": ".aponi_backups/releases/20250914085835/aponi_release_20250914085835.tar.gz",
+                    "name": "aponi_release_20250914085835.tar.gz",
+                    "is_dir": false,
+                    "size": 1141906,
+                    "mtime": 1757858316.6729226,
+                    "tag": null,
+                    "health": null,
+                    "sha256": null,
+                    "children": []
+                  },
+                  {
+                    "path": ".aponi_backups/releases/20250914085835/aponi_release_20250914085835.zip",
+                    "name": "aponi_release_20250914085835.zip",
+                    "is_dir": false,
+                    "size": 1151956,
+                    "mtime": 1757858318.0729225,
+                    "tag": null,
+                    "health": null,
+                    "sha256": null,
+                    "children": []
+                  },
+                  {
+                    "path": ".aponi_backups/releases/20250914085835/metadata.json",
+                    "name": "metadata.json",
+                    "is_dir": false,
+                    "size": 502,
+                    "mtime": 1757858318.6209226,
+                    "tag": null,
+                    "health": null,
+                    "sha256": null,
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "path": ".aponi_backups/releases/20250914090104",
+                "name": "20250914090104",
+                "is_dir": true,
+                "size": 2290095,
+                "mtime": 1757858466.7569225,
+                "tag": null,
+                "health": null,
+                "sha256": null,
+                "children": [
+                  {
+                    "path": ".aponi_backups/releases/20250914090104/aponi_release_20250914090104.tar.gz",
+                    "name": "aponi_release_20250914090104.tar.gz",
+                    "is_dir": false,
+                    "size": 1140100,
+                    "mtime": 1757858465.0129225,
+                    "tag": null,
+                    "health": null,
+                    "sha256": null,
+                    "children": []
+                  },
+                  {
+                    "path": ".aponi_backups/releases/20250914090104/aponi_release_20250914090104.zip",
+                    "name": "aponi_release_20250914090104.zip",
+                    "is_dir": false,
+                    "size": 1149493,
+                    "mtime": 1757858466.2369225,
+                    "tag": null,
+                    "health": null,
+                    "sha256": null,
+                    "children": []
+                  },
+                  {
+                    "path": ".aponi_backups/releases/20250914090104/metadata.json",
+                    "name": "metadata.json",
+                    "is_dir": false,
+                    "size": 502,
+                    "mtime": 1757858466.7609224,
+                    "tag": null,
+                    "health": null,
+                    "sha256": null,
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "path": ".aponi_backups/releases/20250914090455",
+                "name": "20250914090455",
+                "is_dir": true,
+                "size": 2295022,
+                "mtime": 1757858698.6529226,
+                "tag": null,
+                "health": null,
+                "sha256": null,
+                "children": [
+                  {
+                    "path": ".aponi_backups/releases/20250914090455/aponi_release_20250914090455.tar.gz",
+                    "name": "aponi_release_20250914090455.tar.gz",
+                    "is_dir": false,
+                    "size": 1142199,
+                    "mtime": 1757858696.8529224,
+                    "tag": null,
+                    "health": null,
+                    "sha256": null,
+                    "children": []
+                  },
+                  {
+                    "path": ".aponi_backups/releases/20250914090455/aponi_release_20250914090455.zip",
+                    "name": "aponi_release_20250914090455.zip",
+                    "is_dir": false,
+                    "size": 1152321,
+                    "mtime": 1757858698.1089225,
+                    "tag": null,
+                    "health": null,
+                    "sha256": null,
+                    "children": []
+                  },
+                  {
+                    "path": ".aponi_backups/releases/20250914090455/metadata.json",
+                    "name": "metadata.json",
+                    "is_dir": false,
+                    "size": 502,
+                    "mtime": 1757858698.6569226,
+                    "tag": null,
+                    "health": null,
+                    "sha256": null,
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "path": ".aponi_backups/latest.tar.gz",
+            "name": "latest.tar.gz",
+            "is_dir": false,
+            "size": 1142199,
+            "mtime": 1757858696.9369226,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": ".aponi_backups/latest.zip",
+            "name": "latest.zip",
+            "is_dir": false,
+            "size": 1152321,
+            "mtime": 1757858698.2489226,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "agents",
+        "name": "agents",
+        "is_dir": true,
+        "size": 4424,
+        "mtime": 1757369946.372713,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": [
+          {
+            "path": "agents/J.py",
+            "name": "J.py",
+            "is_dir": false,
+            "size": 164,
+            "mtime": 1756947108.2942123,
+            "tag": null,
+            "health": "ok",
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "agents/reporter_agent.py",
+            "name": "reporter_agent.py",
+            "is_dir": false,
+            "size": 997,
+            "mtime": 1756947108.2382123,
+            "tag": "generated",
+            "health": "ok",
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "agents/surgical_developer.py",
+            "name": "surgical_developer.py",
+            "is_dir": false,
+            "size": 3263,
+            "mtime": 1756947108.2142124,
+            "tag": null,
+            "health": "ok",
+            "sha256": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "assets",
+        "name": "assets",
+        "is_dir": true,
+        "size": 0,
+        "mtime": 1757483870.4506228,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": [
+          {
+            "path": "assets/img",
+            "name": "img",
+            "is_dir": true,
+            "size": 0,
+            "mtime": 1757864921.0014307,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "branding",
+        "name": "branding",
+        "is_dir": true,
+        "size": 3426,
+        "mtime": 1757369946.872713,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": [
+          {
+            "path": "branding/banner_loader.py",
+            "name": "banner_loader.py",
+            "is_dir": false,
+            "size": 1329,
+            "mtime": 1756947107.9142125,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "branding/banners.json",
+            "name": "banners.json",
+            "is_dir": false,
+            "size": 942,
+            "mtime": 1756947107.9582124,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "branding/banners.py",
+            "name": "banners.py",
+            "is_dir": false,
+            "size": 1155,
+            "mtime": 1756947107.9382124,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "data",
+        "name": "data",
+        "is_dir": true,
+        "size": 6,
+        "mtime": 1757369946.692713,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": [
+          {
+            "path": "data/agents_meta.json",
+            "name": "agents_meta.json",
+            "is_dir": false,
+            "size": 3,
+            "mtime": 1756947106.7302125,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "data/patterns.json",
+            "name": "patterns.json",
+            "is_dir": false,
+            "size": 3,
+            "mtime": 1756947106.7062123,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "handlers",
+        "name": "handlers",
+        "is_dir": true,
+        "size": 5669,
+        "mtime": 1757369947.860713,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": [
+          {
+            "path": "handlers/handle_apply_patch.py",
+            "name": "handle_apply_patch.py",
+            "is_dir": false,
+            "size": 1101,
+            "mtime": 1756947107.1102123,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "handlers/handle_beast.py",
+            "name": "handle_beast.py",
+            "is_dir": false,
+            "size": 142,
+            "mtime": 1756947106.7862124,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "handlers/handle_diagnostics.py",
+            "name": "handle_diagnostics.py",
+            "is_dir": false,
+            "size": 589,
+            "mtime": 1756947106.9182124,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "handlers/handle_ecosystem.py",
+            "name": "handle_ecosystem.py",
+            "is_dir": false,
+            "size": 140,
+            "mtime": 1756947106.8942125,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "handlers/handle_improve_agent.py",
+            "name": "handle_improve_agent.py",
+            "is_dir": false,
+            "size": 817,
+            "mtime": 1756947107.0342124,
+            "tag": "generated",
+            "health": "ok",
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "handlers/handle_inspect_projects.py",
+            "name": "handle_inspect_projects.py",
+            "is_dir": false,
+            "size": 382,
+            "mtime": 1756947106.8102124,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "handlers/handle_list_agents.py",
+            "name": "handle_list_agents.py",
+            "is_dir": false,
+            "size": 233,
+            "mtime": 1756947107.0902123,
+            "tag": "generated",
+            "health": "ok",
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "handlers/handle_marketplace.py",
+            "name": "handle_marketplace.py",
+            "is_dir": false,
+            "size": 214,
+            "mtime": 1756947107.2142124,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "handlers/handle_pack.py",
+            "name": "handle_pack.py",
+            "is_dir": false,
+            "size": 122,
+            "mtime": 1756947106.8342123,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "handlers/handle_plugins.py",
+            "name": "handle_plugins.py",
+            "is_dir": false,
+            "size": 868,
+            "mtime": 1756947107.1342125,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "handlers/handle_run_agent.py",
+            "name": "handle_run_agent.py",
+            "is_dir": false,
+            "size": 449,
+            "mtime": 1756947107.1542125,
+            "tag": "generated",
+            "health": "ok",
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "handlers/handle_scaffold.py",
+            "name": "handle_scaffold.py",
+            "is_dir": false,
+            "size": 122,
+            "mtime": 1756947106.9822123,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "handlers/handle_score.py",
+            "name": "handle_score.py",
+            "is_dir": false,
+            "size": 352,
+            "mtime": 1756947107.0102124,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "handlers/handle_tail_logs.py",
+            "name": "handle_tail_logs.py",
+            "is_dir": false,
+            "size": 138,
+            "mtime": 1756947107.2382123,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "projects",
+        "name": "projects",
+        "is_dir": true,
+        "size": 290,
+        "mtime": 1756947410.2742124,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": [
+          {
+            "path": "projects/example_app",
+            "name": "example_app",
+            "is_dir": true,
+            "size": 290,
+            "mtime": 1757369946.520713,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": [
+              {
+                "path": "projects/example_app/tests",
+                "name": "tests",
+                "is_dir": true,
+                "size": 182,
+                "mtime": 1757369946.428713,
+                "tag": null,
+                "health": null,
+                "sha256": null,
+                "children": [
+                  {
+                    "path": "projects/example_app/tests/test_add.py",
+                    "name": "test_add.py",
+                    "is_dir": false,
+                    "size": 182,
+                    "mtime": 1756947108.3302124,
+                    "tag": null,
+                    "health": null,
+                    "sha256": null,
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "path": "projects/example_app/main.py",
+                "name": "main.py",
+                "is_dir": false,
+                "size": 108,
+                "mtime": 1756947108.4222124,
+                "tag": null,
+                "health": null,
+                "sha256": null,
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "scripts",
+        "name": "scripts",
+        "is_dir": true,
+        "size": 7033,
+        "mtime": 1757914226.3264627,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": [
+          {
+            "path": "scripts/aponi_publish.sh",
+            "name": "aponi_publish.sh",
+            "is_dir": false,
+            "size": 6643,
+            "mtime": 1757858661.7209225,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "scripts/systemd_service_template.service",
+            "name": "systemd_service_template.service",
+            "is_dir": false,
+            "size": 235,
+            "mtime": 1756947107.3822124,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "scripts/termux_start.sh",
+            "name": "termux_start.sh",
+            "is_dir": false,
+            "size": 155,
+            "mtime": 1756947107.3182123,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "static",
+        "name": "static",
+        "is_dir": true,
+        "size": 2461675,
+        "mtime": 1757864881.4734309,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": [
+          {
+            "path": "static/css",
+            "name": "css",
+            "is_dir": true,
+            "size": 5662,
+            "mtime": 1757483915.626623,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": [
+              {
+                "path": "static/css/aponi_ui.css",
+                "name": "aponi_ui.css",
+                "is_dir": false,
+                "size": 5662,
+                "mtime": 1757485580.974623,
+                "tag": null,
+                "health": null,
+                "sha256": null,
+                "children": []
+              }
+            ]
+          },
+          {
+            "path": "static/icons",
+            "name": "icons",
+            "is_dir": true,
+            "size": 1086126,
+            "mtime": 1757864964.4814308,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": [
+              {
+                "path": "static/icons/agent_default.jpg",
+                "name": "agent_default.jpg",
+                "is_dir": false,
+                "size": 276650,
+                "mtime": 1757281331.0,
+                "tag": null,
+                "health": null,
+                "sha256": null,
+                "children": []
+              },
+              {
+                "path": "static/icons/aponi.jpg",
+                "name": "aponi.jpg",
+                "is_dir": false,
+                "size": 276650,
+                "mtime": 1757281331.0,
+                "tag": null,
+                "health": null,
+                "sha256": null,
+                "children": []
+              },
+              {
+                "path": "static/icons/project.svg",
+                "name": "project.svg",
+                "is_dir": false,
+                "size": 532826,
+                "mtime": 1757452628.0,
+                "tag": null,
+                "health": null,
+                "sha256": null,
+                "children": []
+              }
+            ]
+          },
+          {
+            "path": "static/js",
+            "name": "js",
+            "is_dir": true,
+            "size": 21196,
+            "mtime": 1757485286.030623,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": [
+              {
+                "path": "static/js/aponi_console.js",
+                "name": "aponi_console.js",
+                "is_dir": false,
+                "size": 1039,
+                "mtime": 1757482505.7960966,
+                "tag": null,
+                "health": null,
+                "sha256": null,
+                "children": []
+              },
+              {
+                "path": "static/js/aponi_editor.js",
+                "name": "aponi_editor.js",
+                "is_dir": false,
+                "size": 2516,
+                "mtime": 1757482470.5840967,
+                "tag": null,
+                "health": null,
+                "sha256": null,
+                "children": []
+              },
+              {
+                "path": "static/js/aponi_explorer.js",
+                "name": "aponi_explorer.js",
+                "is_dir": false,
+                "size": 2686,
+                "mtime": 1757482439.8720965,
+                "tag": null,
+                "health": null,
+                "sha256": null,
+                "children": []
+              },
+              {
+                "path": "static/js/aponi_kpi.js",
+                "name": "aponi_kpi.js",
+                "is_dir": false,
+                "size": 5926,
+                "mtime": 1757485788.294623,
+                "tag": null,
+                "health": null,
+                "sha256": null,
+                "children": []
+              },
+              {
+                "path": "static/js/aponi_main.js",
+                "name": "aponi_main.js",
+                "is_dir": false,
+                "size": 2203,
+                "mtime": 1757485826.290623,
+                "tag": null,
+                "health": null,
+                "sha256": null,
+                "children": []
+              },
+              {
+                "path": "static/js/aponi_search.js",
+                "name": "aponi_search.js",
+                "is_dir": false,
+                "size": 1771,
+                "mtime": 1757482530.8120966,
+                "tag": null,
+                "health": null,
+                "sha256": null,
+                "children": []
+              },
+              {
+                "path": "static/js/aponi_ui.js",
+                "name": "aponi_ui.js",
+                "is_dir": false,
+                "size": 5055,
+                "mtime": 1757485755.550623,
+                "tag": null,
+                "health": null,
+                "sha256": null,
+                "children": []
+              }
+            ]
+          },
+          {
+            "path": "static/logo.png",
+            "name": "logo.png",
+            "is_dir": false,
+            "size": 1348691,
+            "mtime": 1756614523.9860475,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "tests",
+        "name": "tests",
+        "is_dir": true,
+        "size": 29,
+        "mtime": 1757369946.988713,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": [
+          {
+            "path": "tests/__init__.py",
+            "name": "__init__.py",
+            "is_dir": false,
+            "size": 0,
+            "mtime": 1756947108.0982125,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "tests/test_sanity.py",
+            "name": "test_sanity.py",
+            "is_dir": false,
+            "size": 29,
+            "mtime": 1756947108.0782125,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": "tools",
+        "name": "tools",
+        "is_dir": true,
+        "size": 2142,
+        "mtime": 1757369948.472713,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": [
+          {
+            "path": "tools/brand_manager.py",
+            "name": "brand_manager.py",
+            "is_dir": false,
+            "size": 864,
+            "mtime": 1756947107.8062124,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "tools/metrics_collector.py",
+            "name": "metrics_collector.py",
+            "is_dir": false,
+            "size": 701,
+            "mtime": 1756947107.8262124,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "tools/packager.py",
+            "name": "packager.py",
+            "is_dir": false,
+            "size": 254,
+            "mtime": 1756947107.7862124,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          },
+          {
+            "path": "tools/show_banner.py",
+            "name": "show_banner.py",
+            "is_dir": false,
+            "size": 323,
+            "mtime": 1756947107.7342124,
+            "tag": null,
+            "health": null,
+            "sha256": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "path": ".gitignore",
+        "name": ".gitignore",
+        "is_dir": false,
+        "size": 90,
+        "mtime": 1756947107.9782124,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": []
+      },
+      {
+        "path": "adaad_tree_dashboard.html",
+        "name": "adaad_tree_dashboard.html",
+        "is_dir": false,
+        "size": 5389,
+        "mtime": 1757860609.6654305,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": []
+      },
+      {
+        "path": "adaad_tree_full.html",
+        "name": "adaad_tree_full.html",
+        "is_dir": false,
+        "size": 29756,
+        "mtime": 1757947869.8268335,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": []
+      },
+      {
+        "path": "adaad_tree_full.json",
+        "name": "adaad_tree_full.json",
+        "is_dir": false,
+        "size": 30507,
+        "mtime": 1757947869.7828336,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": []
+      },
+      {
+        "path": "aponi_dashboard.html",
+        "name": "aponi_dashboard.html",
+        "is_dir": false,
+        "size": 36497,
+        "mtime": 1757485233.910623,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": []
+      },
+      {
+        "path": "aponi_dashboard.py",
+        "name": "aponi_dashboard.py",
+        "is_dir": false,
+        "size": 21498,
+        "mtime": 1757913874.8363807,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": []
+      },
+      {
+        "path": "aponi_launch.py",
+        "name": "aponi_launch.py",
+        "is_dir": false,
+        "size": 23113,
+        "mtime": 1757385195.132831,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": []
+      },
+      {
+        "path": "aponi_server.py",
+        "name": "aponi_server.py",
+        "is_dir": false,
+        "size": 12469,
+        "mtime": 1757381416.516831,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": []
+      },
+      {
+        "path": "aponi_server_secure.py",
+        "name": "aponi_server_secure.py",
+        "is_dir": false,
+        "size": 14048,
+        "mtime": 1757379000.6768308,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": []
+      },
+      {
+        "path": "explorer.py",
+        "name": "explorer.py",
+        "is_dir": false,
+        "size": 8669,
+        "mtime": 1757480491.953976,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": []
+      },
+      {
+        "path": "README.md",
+        "name": "README.md",
+        "is_dir": false,
+        "size": 146,
+        "mtime": 1756947107.6142123,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": []
+      },
+      {
+        "path": "tree.py",
+        "name": "tree.py",
+        "is_dir": false,
+        "size": 27157,
+        "mtime": 1757947783.4548335,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": []
+      },
+      {
+        "path": "valuation.json",
+        "name": "valuation.json",
+        "is_dir": false,
+        "size": 2458,
+        "mtime": 1756947108.1222124,
+        "tag": null,
+        "health": null,
+        "sha256": null,
+        "children": []
+      }
+    ]
+  },
+  "summary": {
+    "dirs": 23,
+    "files": 70,
+    "agents": 6,
+    "bytes": 13010590
+  },
+  "generated_at": 1758129822.1698592,
+  "root_path": "/storage/emulated/0/ADAAD/Aponi"
+}

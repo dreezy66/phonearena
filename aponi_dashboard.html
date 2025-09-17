@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Aponi — ADAAD Dashboard (Productive Prototype)</title>
+<style>
+:root{
+  --bg:#0f1724; --panel:#0b1220; --muted:#94a3b8; --accent:#7c3aed; --glass: rgba(255,255,255,0.03);
+  --glass-2: rgba(255,255,255,0.02); --success:#10b981; --danger:#ef4444;
+  --radius:12px; --gap:12px; --shadow: 0 8px 24px rgba(2,6,23,0.7);
+  --safe-font: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#071023);font-family:var(--safe-font);color:#e6eef8;-webkit-font-smoothing:antialiased}
+.app{display:grid;grid-template-columns:72px 320px 1fr;grid-template-rows:auto 1fr;gap:var(--gap);height:100vh;padding:14px}
+
+/* topbar */
+<!-- brand + global search -->
+<div class="brand" style="gap:12px;align-items:center;">
+  <img src="assets/img/aponi_logo.svg" alt="Aponi" style="width:40px;height:40px;border-radius:8px;object-fit:cover" />
+  <div>
+    <div class="title">Aponi</div>
+    <div class="subtitle">ADAAD-powered Mobile IDE & File Explorer</div>
+  </div>
+
+  <!-- global quick search / command bar -->
+  <div style="margin-left:18px;flex:1;display:flex;align-items:center;">
+    <input id="global-search" placeholder="Search files, agents, commands... ⌘K" aria-label="Global search"
+           style="flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit" />
+    <button id="search-btn" class="ghost" style="margin-left:8px">Go</button>
+  </div>
+</div>}
+
+/* left dock */
+nav.dock{grid-row:2/3;padding:10px;border-radius:12px;background:linear-gradient(180deg,transparent,transparent)}
+.dock .icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:transparent}
+.icon.active{background:linear-gradient(180deg,#07122633,rgba(255,255,255,0.01));box-shadow:inset 0 1px 0 rgba(255,255,255,0.02)}
+
+/* left sidebar (file explorer + ai) */
+aside.leftbar{grid-row:2/3;background:var(--panel);padding:12px;border-radius:12px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.left-header{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.search{flex:1;padding:8px;border-radius:10px;background:var(--glass);border:1px solid rgba(255,255,255,0.02);color:var(--muted)}
+.breadcrumbs{font-size:13px;color:var(--muted);margin-bottom:8px}
+.explorer{flex:1;overflow:auto;padding-right:6px}
+.tree-item{padding:8px;border-radius:8px;margin:4px 0;display:flex;gap:8px;align-items:center;touch-action:manipulation}
+.tree-item.folder{background:linear-gradient(90deg, rgba(124,58,237,0.04), transparent)}
+.file-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Assistant card pinned at bottom of leftbar */
+.assistant-card{margin-top:8px;background:linear-gradient(180deg,var(--glass),var(--glass-2));padding:10px;border-radius:12px}
+.assistant-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.assistant-actions button{flex:1 1 auto}
+
+/* main area */
+main.stage{grid-row:2/3;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+.stage-top{display:flex;gap:10px;align-items:center}
+.controls{display:flex;gap:8px}
+button.btn{background:var(--accent);border:none;padding:8px 12px;border-radius:10px;color:white;font-weight:600}
+button.outline{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+button.ghost{background:transparent;border:none;color:var(--muted);padding:6px 8px;border-radius:8px}
+
+/* layout */
+.layout{display:grid;grid-template-columns:1fr 420px;gap:12px;margin-top:12px;flex:1;min-height:0}
+.editor{background:linear-gradient(180deg,#071226,transparent);border-radius:12px;padding:10px;overflow:hidden;display:flex;flex-direction:column;min-height:0}
+.editor .tabs{display:flex;gap:6px;margin-bottom:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
+.tab{padding:8px 10px;border-radius:8px;background:var(--glass);font-weight:600;flex:0 0 auto;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.tab.unsaved::after{content:'*';color:var(--danger);margin-left:4px;font-weight:800}
+.tab.active{background:linear-gradient(90deg, rgba(124,58,237,0.12), rgba(124,58,237,0.06));color:white}
+.tab .close{margin-left:6px;opacity:0.6;cursor:pointer}
+.error-summary{background:#2b1222;border-left:4px solid var(--danger);padding:8px;border-radius:8px;margin-bottom:8px;color:#ffd7d7;font-size:13px}
+.trace-line{color:#ffd7d7;text-decoration:underline;cursor:pointer}
+
+/* editor area */
+.code{background:#071226;border-radius:10px;padding:12px;flex:1;overflow:auto;white-space:pre; font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace;font-size:13px;color:#cfe7ff}
+
+/* right panel: dashboard / metrics */
+aside.rightbar{background:var(--panel);padding:12px;border-radius:12px;box-shadow:var(--shadow);overflow:auto}
+.card{background:linear-gradient(180deg,var(--glass),var(--glass-2));padding:10px;border-radius:12px;margin-bottom:10px}
+.kpi{display:flex;justify-content:space-between;align-items:center}
+.kpi .big{font-size:20px;font-weight:800}
+.list{display:grid;gap:8px}
+
+/* bottom console */
+footer.console{grid-column:1/-1;margin-top:6px;background:#031020;padding:10px;border-radius:10px;display:flex;gap:8px;align-items:flex-start}
+.console-out{flex:1;background:#011221;border-radius:8px;padding:8px;max-height:240px;overflow:auto;font-family:ui-monospace,monospace;font-size:12px;color:#9fd2ff}
+.console-input{width:320px}
+
+/* mobile tweaks */
+@media (max-width:900px){
+  .app{grid-template-columns:56px 1fr;grid-template-rows:auto 1fr 280px}
+  aside.leftbar{display:none}
+  .layout{grid-template-columns:1fr}
+  main.stage{padding:8px}
+  footer.console{grid-row:3/4}
+}
+</style>
+</head>
+<body>
+  <div class="app" role="application" aria-label="Aponi — ADAAD Dashboard">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 12c0-4 4-8 8-8s8 4 8 8-4 8-8 8S4 16 4 12z" fill="white" opacity="0.06"/><path d="M8 12a4 4 0 0 1 8 0" stroke="white" stroke-opacity="0.9" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="title">Aponi</div>
+          <div class="subtitle">ADAAD-powered Mobile IDE & File Explorer</div>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <div class="pill">Status: <strong id="status" style="color:var(--success);margin-left:8px">Engine unknown</strong></div>
+        <div class="pill">Agents: <strong id="agents">-</strong></div>
+        <div class="pill">Sync: <strong id="sync">-</strong></div>
+
+        <div class="control-row" style="margin-left:8px">
+          <button class="ghost" onclick="refreshExplorer()">Refresh</button>
+          <button class="outline" id="save-btn" onclick="saveActiveTab()">Save</button>
+          <button class="btn" onclick="runProject()">Run</button>
+          <button class="outline" onclick="runStreamActive()">Run (stream)</button>
+        </div>
+        <button class="btn" onclick="toggleShare()">Share Project</button>
+      </div>
+    </header>
+
+    <nav class="dock" aria-hidden="true">
+      <div class="icon active" title="Explorer">…</div>
+      <div class="icon" title="Search">…</div>
+      <div class="icon" title="Agents">…</div>
+      <div class="icon" title="Marketplace">…</div>
+    </nav>
+
+    <aside class="leftbar" aria-label="File explorer & quick tools">
+      <div class="left-header">
+        <input class="search" id="quickopen" placeholder="Quick open (files, agents, commands)" aria-label="Quick open" />
+        <button class="btn" onclick="promptCreate('file')">New</button>
+      </div>
+
+      <div class="breadcrumbs" id="breadcrumbs">/</div>
+      <div class="explorer" id="explorer" role="tree" aria-label="File Explorer">
+        <!-- dynamic -->
+      </div>
+
+      <div class="assistant-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><strong>Assistant</strong><small style="color:var(--muted)">ADAAD</small></div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:8px">AI helpers: scaffold, repair, propose tests, package.</div>
+        <div class="assistant-actions">
+          <button class="btn" onclick="askAI('repair')">Repair</button>
+          <button class="outline" onclick="askAI('scaffold')">Scaffold</button>
+          <button class="outline" onclick="askAI('tests')">Propose tests</button>
+          <button class="outline" onclick="askAI('package')">Package</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="stage">
+      <div class="stage-top">
+        <div style="display:flex;flex-direction:column">
+          <div style="font-size:13px;color:var(--muted)">Project</div>
+          <div style="font-weight:800;font-size:18px" id="project-name">Aponi</div>
+        </div>
+        <div class="controls">
+          <button class="outline" onclick="openPreview()">Preview</button>
+        </div>
+      </div>
+
+      <div class="layout">
+        <section class="editor" aria-label="Editor">
+          <div id="error-wrapper" style="display:none"></div>
+          <div class="tabs" id="tabs" role="tablist"></div>
+          <div class="code" id="code" contenteditable="true" spellcheck="false"></div>
+        </section>
+
+        <aside class="rightbar">
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center"><strong>Live KPIs</strong><small style="color:var(--muted)">Updated: <span id="kpi-ts">now</span></small></div>
+            <div class="list" style="margin-top:8px">
+              <div class="kpi"><div>Active agents</div><div class="big" id="kpi-agents">12</div></div>
+              <div class="kpi"><div>Cycles / hr</div><div class="big" id="kpi-cycles">24</div></div>
+              <div class="kpi"><div>CPU / RAM</div><div class="big" id="kpi-usage">24% / 1.2GB</div></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <strong>Recent changes</strong>
+            <div style="font-size:13px;color:var(--muted);margin-top:6px" id="recent-changes">patch-20250902 • repair_fix • new-agent</div>
+          </div>
+
+          <div class="card">
+            <strong>Marketplace</strong>
+            <div style="font-size:13px;color:var(--muted);margin-top:6px">Browse agents, templates & UI packs</div>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button class="btn" onclick="openMarket()">Browse</button>
+              <button class="outline" onclick="publish()">Publish</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="console" role="region" aria-label="Console">
+      <div class="console-out" id="console">$ ready</div>
+      <input class="console-input" id="console-in" placeholder="enter command (e.g. run, test, lint)" onkeydown="if(event.key==='Enter'){sendCmd();}" />
+    </footer>
+  </div>
+
+<script>
+/* -------------------------
+   Configuration & State
+   ------------------------- */
+const API_BASE = "http://127.0.0.1:8765";
+const API = API_BASE + "/api";
+const ROOT_DISPLAY = "/";        // used for breadcrumbs display
+let currentPath = ".";          // current explorer path relative to ROOT
+let tabsState = new Map();      // key -> {title, path, content, unsaved}
+let clipboardPath = null;       // for copy/paste
+const codeEl = document.getElementById('code');
+const tabsEl = document.getElementById('tabs');
+const explorerEl = document.getElementById('explorer');
+const consoleEl = document.getElementById('console');
+const breadcrumbsEl = document.getElementById('breadcrumbs');
+
+/* -------------------------
+   Minimal logging helper
+   ------------------------- */
+function log(msg){
+  consoleEl.textContent += "\n" + msg;
+  consoleEl.scrollTop = consoleEl.scrollHeight;
+}
+
+/* -------------------------
+   API helpers
+   ------------------------- */
+async function apiList(path="."){
+  const res = await fetch(API + "/list?path=" + encodeURIComponent(path));
+  return res.json();
+}
+async function apiRead(path){ const res = await fetch(API + "/read?path=" + encodeURIComponent(path)); return res.json(); }
+async function apiWrite(path, content){ const res = await fetch(API + "/write",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({path,content})}); return res.json(); }
+async function apiCreate(path, type="file"){ const res = await fetch(API + "/create",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({path,type})}); return res.json(); }
+async function apiRename(src,dst){ const res = await fetch(API + "/rename",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({src,dst})}); return res.json(); }
+async function apiCopy(src,dst){ const res = await fetch(API + "/copy",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({src,dst})}); return res.json(); }
+async function apiDelete(path){ const res = await fetch(API + "/delete",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({path})}); return res.json(); }
+async function apiRun(path,args=[]){ const res = await fetch(API + "/run",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({path,args})}); return res.json(); }
+function apiRunStream(path,onEvent){
+  const url = API_BASE + "/run_stream?path=" + encodeURIComponent(path);
+  const es = new EventSource(url);
+  es.onmessage = (ev) => { try { const obj = JSON.parse(ev.data); onEvent(obj); if(obj.type==="exit") es.close(); } catch(e) { console.warn("SSE parse",e); } };
+  es.onerror = (e)=>{ console.warn("SSE error",e); es.close(); };
+  return es;
+}
+
+/* ------------------------
+    Aponi Explorer UI
+    ----------------------- */
+<style>
+.aponi-explorer { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; max-width:100%; }
+.aponi-root { display:flex; gap:12px; flex-direction:column; padding:12px; }
+.aponi-tree { background: rgba(0,0,0,0.03); border-radius:12px; padding:8px; max-height:60vh; overflow:auto; }
+.aponi-node { padding:6px 8px; border-radius:8px; display:flex; gap:8px; align-items:center; cursor:default; }
+.aponi-node:hover { background: rgba(0,0,0,0.04); }
+.aponi-folder { font-weight:600; }
+.aponi-file { color: #0b6; font-weight:500; }
+.aponi-actions { margin-left:auto; display:flex; gap:6px; }
+.aponi-btn { background:transparent; border:none; padding:6px; border-radius:6px; cursor:pointer; font-size:14px; }
+.aponi-search { margin-bottom:8px; display:flex; gap:8px; }
+.aponi-editor { margin-top:12px; display:flex; flex-direction:column; gap:8px; }
+.aponi-textarea { width:100%; min-height:200px; padding:12px; border-radius:8px; border:1px solid rgba(0,0,0,0.08); font-family:monospace; font-size:13px; resize:vertical; }
+.small-muted { font-size:12px; color:#666; }
+.mobile-friendly { width:100%; }
+.icon { width:20px; text-align:center; }
+</style>
+
+<div id="aponi-explorer" class="aponi-explorer mobile-friendly">
+  <div class="aponi-root">
+    <div style="display:flex;gap:8px;align-items:center;">
+      <h3 style="margin:0">📂 Aponi Explorer</h3>
+      <div class="small-muted" id="explorer-base" style="margin-left:8px"></div>
+    </div>
+
+    <div class="aponi-search">
+      <input id="explorer-path" placeholder="Path (relative) — leave blank for root" style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.08)">
+      <button id="btn-refresh" class="aponi-btn">Refresh</button>
+      <button id="btn-new-file" class="aponi-btn">+File</button>
+      <button id="btn-new-folder" class="aponi-btn">+Folder</button>
+    </div>
+
+    <div id="tree" class="aponi-tree" aria-live="polite"></div>
+
+    <div class="aponi-editor" id="editor" style="display:none">
+      <div style="display:flex;gap:8px;align-items:center;">
+        <div id="editor-path" style="font-weight:600"></div>
+        <div id="editor-info" class="small-muted"></div>
+        <div style="flex:1"></div>
+        <button id="btn-save" class="aponi-btn">Save</button>
+        <button id="btn-close" class="aponi-btn">Close</button>
+      </div>
+      <textarea id="editor-text" class="aponi-textarea" spellcheck="false"></textarea>
+      <div class="small-muted">Autosave debounce: 1s. Small files only (safe mode).</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  <link rel="stylesheet" href="static/css/aponi_ui.css">
+
+<script>
+/* =========================
+   Aponi Dashboard: advanced merged script
+   - optimized explorer updates
+   - SSE fs-subscribe with polling fallback
+   - recent-changes feed
+   - CodeMirror deferred init
+   ========================= */
+
+const API_ROOT_DEFAULT = "http://127.0.0.1:8765";
+let API_ROOT = localStorage.getItem("APONI_API_ROOT") || API_ROOT_DEFAULT;
+let API_TOKEN = sessionStorage.getItem("APONI_TOKEN") || "";
+const consoleEl = document.getElementById("console");
+const serverInfoEl = document.getElementById("server-info");
+const explorerEl = document.getElementById("explorer");
+const quickInput = document.getElementById("quick");
+const recentEl = document.getElementById("recent");
+const tabsEl = document.getElementById("tabs");
+const cmContainer = document.getElementById("cm-container");
+const fallbackEditor = document.getElementById("editor-fallback");
+const saveBtn = document.getElementById("save-btn");
+const saveRunBtn = document.getElementById("save-run-btn");
+const runBtn = document.getElementById("run");
+let cmEditor = null;
+let openTabs = []; // {path, title, content, dirty}
+let activeTab = null;
+
+// small utilities
+function log(msg){
+  const el = consoleEl;
+  const ts = new Date().toLocaleTimeString();
+  el.textContent += `\n[${ts}] ${msg}`;
+  el.scrollTop = el.scrollHeight;
+}
+function setServerInfo(){
+  serverInfoEl.innerHTML = `Server: <code style="color:#ffd280">${API_ROOT}</code> <span class="small">token: ${API_TOKEN? "●●●●":"(not set)"}</span>`;
+}
+setServerInfo();
+
+async function apiFetch(path, opts = {}){
+  const url = API_ROOT + path;
+  opts.headers = opts.headers || {};
+  opts.headers["Accept"] = "application/json";
+  if(API_TOKEN) opts.headers["X-API-Key"] = API_TOKEN;
+  try {
+    const res = await fetch(url, opts);
+    const ct = res.headers.get("Content-Type") || "";
+    if(ct.includes("application/json")) return { ok: res.ok, status: res.status, json: await res.json() };
+    else return { ok: res.ok, status: res.status, text: await res.text() };
+  } catch(e){
+    return { ok: false, error: e.message || e.toString() };
+  }
+}
+
+/* -------------------------
+   Explorer: efficient updates
+   - only create/update DOM nodes when changed
+   - maintain mtime cache for recent-changes
+   ------------------------- */
+const explorerCache = new Map(); // path -> {mtime, el}
+const recentChanges = []; // {path, mtime}
+let currentExplorerPath = ".";
+
+function formatRecentList(){
+  if(!recentChanges.length){ recentEl.textContent = "—"; return; }
+  const top = recentChanges.slice(0,8).map(r => `${r.path} • ${new Date(r.mtime*1000).toLocaleTimeString()}`);
+  recentEl.textContent = top.join(" • ");
+}
+
+// create or update a single explorer DOM row
+function ensureExplorerRow(item){
+  const id = item.path;
+  const cached = explorerCache.get(id);
+  if(!cached){
+    const d = document.createElement("div");
+    d.className = "tree-item" + (item.is_dir ? " folder" : "");
+    d.dataset.path = item.path;
+    d.innerHTML = `${item.is_dir? "📁":"📄"} <div class="file-name">${item.name}${item.is_dir?'/':''}</div>`;
+    d.onclick = ()=> { if(item.is_dir) loadExplorer(item.path); else openFile(item.path); };
+    d.oncontextmenu = (ev)=> { ev.preventDefault(); fileContextMenu(item.path, item.is_dir, ev.clientX, ev.clientY); };
+    explorerEl.appendChild(d);
+    explorerCache.set(id, {mtime: item.mtime || 0, el: d});
+    return d;
+  } else {
+    // update mtime if changed
+    if(item.mtime && cached.mtime !== item.mtime){
+      cached.mtime = item.mtime;
+      // visual ping
+      cached.el.animate([{background: 'rgba(60,120,200,0.12)'}, {background: 'transparent'}], {duration:600});
+      // update recentChanges
+      addRecentChange(item.path, item.mtime);
+    }
+    // if filename changed (rare), update title
+    const nameNode = cached.el.querySelector(".file-name");
+    if(nameNode && nameNode.textContent !== (item.name + (item.is_dir?'/':''))){
+      nameNode.textContent = item.name + (item.is_dir?'/':'');
+    }
+    return cached.el;
+  }
+}
+
+function pruneExplorerForPath(path){
+  // remove children not present (simple strategy: for a full refresh we'll rebuild, but for partial we can be smarter)
+  // for now used when switching folders; clear subtree
+  Array.from(explorerEl.children).forEach(ch => {
+    if(ch.dataset && ch.dataset.path) explorerCache.delete(ch.dataset.path);
+  });
+  explorerEl.innerHTML = "";
+}
+
+// add to recent changes list (sorted)
+function addRecentChange(path, mtime){
+  // remove existing
+  const idx = recentChanges.findIndex(r=>r.path===path);
+  if(idx>=0) recentChanges.splice(idx,1);
+  recentChanges.unshift({path, mtime});
+  // cap
+  if(recentChanges.length>200) recentChanges.length = 200;
+  formatRecentList();
+}
+
+/* loadExplorer: fetch children and diff against cache */
+async function loadExplorer(path="."){
+  currentExplorerPath = path || ".";
+  explorerEl.innerHTML = "Loading…";
+  try {
+    const r = await apiFetch(`/api/list?path=${encodeURIComponent(path)}`);
+    if(!r.ok){ explorerEl.innerHTML = `<div class="notice">Explorer error: ${r.error || (r.json && r.json.error) || r.status}</div>`; log("explorer fetch failed: " + JSON.stringify(r)); return; }
+    const items = r.json.items || [];
+    // quick parent row
+    pruneExplorerForPath(path);
+    if(path !== "."){
+      const up = document.createElement("div");
+      up.className = "tree-item";
+      up.innerHTML = "⬆ ..";
+      up.onclick = ()=> loadExplorer(path.split("/").slice(0,-1).join("/") || ".");
+      explorerEl.appendChild(up);
+    }
+    // add items defensively; only update changed rows
+    for(const it of items){
+      ensureExplorerRow(it);
+      if(it.mtime) addRecentChange(it.path, it.mtime);
+    }
+    // apply current quick filter if present
+    applyQuickFilter(quickInput.value);
+  } catch(e){
+    explorerEl.innerHTML = `<div class="notice">Exception: ${e}</div>`;
+    log("loadExplorer exception: " + e);
+  }
+}
+
+/* -------------------------
+   SSE for file-system events + fallback poll
+   - tries to listen to /api/subscribe?topic=fs (server must support)
+   - if not available, fallback to a gentle poll of current folder
+   ------------------------- */
+let fsEventSource = null;
+let pollHandle = null;
+let pollIntervalMs = 4000;
+let lastPollTimes = {}; // path -> timestamp
+
+function startFsWatcher(){
+  stopFsWatcher();
+  // try SSE subscribe first
+  try {
+    const sseUrl = API_ROOT.replace(/\/$/,'') + `/api/subscribe?topic=fs`;
+    fsEventSource = new EventSource(sseUrl);
+    fsEventSource.onmessage = (ev) => {
+      try {
+        const obj = JSON.parse(ev.data);
+        if(obj && obj.path){
+          // if same folder or parent affected, refresh minimal
+          if(obj.path.startsWith(currentExplorerPath) || currentExplorerPath === "."){
+            // schedule an idle refresh
+            scheduleExplorerRefresh(200);
+          }
+          if(obj.mtime) addRecentChange(obj.path, obj.mtime);
+          log(`FS event: ${obj.path} ${obj.event || ''}`);
+        }
+      } catch(e){ console.warn('sse parse', e); }
+    };
+    fsEventSource.onerror = (e) => {
+      console.warn('SSE fs error', e);
+      fsEventSource.close();
+      fsEventSource = null;
+      // start poll fallback
+      schedulePoll();
+    };
+    log("FS watcher: SSE subscribed");
+  } catch(e){
+    console.warn('SSE init failed', e);
+    schedulePoll();
+  }
+}
+
+function stopFsWatcher(){
+  if(fsEventSource){ try{fsEventSource.close();}catch(e){} fsEventSource = null; }
+  if(pollHandle){ clearTimeout(pollHandle); pollHandle = null; }
+}
+
+function schedulePoll(delay=0){
+  if(pollHandle) clearTimeout(pollHandle);
+  pollHandle = setTimeout(async function poll(){
+    try {
+      // poll current path very lightly (child mtimes)
+      const r = await apiFetch(`/api/list?path=${encodeURIComponent(currentExplorerPath)}`);
+      if(r.ok && r.json && Array.isArray(r.json.items)){
+        for(const it of r.json.items){
+          const cached = explorerCache.get(it.path);
+          if(!cached || (it.mtime && it.mtime !== cached.mtime)){
+            // changed file — update row by reloading folder
+            scheduleExplorerRefresh(100);
+            if(it.mtime) addRecentChange(it.path, it.mtime);
+            break;
+          }
+        }
+      }
+    } catch(e){ /* ignore */ }
+    pollHandle = setTimeout(poll, pollIntervalMs);
+  }, delay);
+}
+
+/* scheduleExplorerRefresh uses requestIdleCallback when available */
+let refreshScheduled = false;
+function scheduleExplorerRefresh(delay=0){
+  if(refreshScheduled) return;
+  refreshScheduled = true;
+  const run = async () => {
+    refreshScheduled = false;
+    await loadExplorer(currentExplorerPath);
+  };
+  if (delay > 0) setTimeout(()=> (window.requestIdleCallback ? requestIdleCallback(run) : run()), delay);
+  else (window.requestIdleCallback ? requestIdleCallback(run) : run());
+}
+
+/* -------------------------
+   Quick local filter (cheap)
+   ------------------------- */
+let quickDebounce = null;
+function applyQuickFilter(q){
+  const term = String(q||"").trim().toLowerCase();
+  Array.from(explorerEl.children).forEach(node=>{
+    const nameEl = node.querySelector && node.querySelector('.file-name');
+    if(!nameEl) return;
+    const text = nameEl.textContent.toLowerCase();
+    node.style.display = (!term || text.includes(term)) ? "" : "none";
+  });
+}
+quickInput.addEventListener('input', (e)=>{
+  if(quickDebounce) clearTimeout(quickDebounce);
+  quickDebounce = setTimeout(()=> applyQuickFilter(quickInput.value), 160);
+});
+
+/* -------------------------
+   CodeMirror deferred init
+   ------------------------- */
+function ensureEditor(){
+  if(window.CodeMirror && !cmEditor){
+    cmEditor = CodeMirror(cmContainer, {value:"",mode:"python",theme:"dracula",lineNumbers:true,autofocus:true});
+    cmEditor.on("change", ()=> { if(activeTab) { activeTab.dirty=true; renderTabs(); } });
+    fallbackEditor.style.display = "none";
+    cmContainer.style.display = "block";
+    log("CodeMirror ready");
+  } else if(!window.CodeMirror){
+    // fallback contenteditable
+    cmContainer.style.display = "none";
+    fallbackEditor.style.display = "block";
+  }
+}
+// defer init until idle
+if(window.requestIdleCallback) requestIdleCallback(()=> ensureEditor(), {timeout:2000});
+else setTimeout(()=> ensureEditor(), 1200);
+
+/* -------------------------
+   Tab management & editor ops
+   ------------------------- */
+function renderTabs(){
+  tabsEl.innerHTML = "";
+  openTabs.forEach(t=>{
+    const el = document.createElement("div");
+    el.className = "tab" + (t===activeTab ? " active":"");
+    el.textContent = (t.title || t.path) + (t.dirty ? " *":"");
+    el.onclick = ()=> { activateTab(t.path); };
+    el.onauxclick = ()=> { closeTab(t.path); };
+    tabsEl.appendChild(el);
+  });
+}
+
+function activateTab(path){
+  const t = openTabs.find(x=>x.path===path);
+  if(!t) return;
+  activeTab = t;
+  renderTabs();
+  if(cmEditor){
+    cmEditor.setValue(t.content || "");
+    cmEditor.setOption("mode", path.endsWith(".py") ? "python": "text/plain");
+  } else {
+    fallbackEditor.textContent = t.content || "";
+  }
+}
+
+function createOrFocusTab(path, title, content){
+  let t = openTabs.find(x=>x.path===path);
+  if(!t){
+    t = {path, title: title||path.split("/").pop(), content: content||"", dirty:false};
+    openTabs.push(t);
+  } else {
+    t.content = content||t.content;
+  }
+  activateTab(path);
+  renderTabs();
+}
+
+async function openFile(path){
+  log("Opening " + path);
+  const r = await apiFetch(`/api/read?path=${encodeURIComponent(path)}`);
+  if(!r.ok){ log("read error: " + (r.json && r.json.error) ); return; }
+  createOrFocusTab(path, path.split("/").pop(), r.json.content);
+}
+
+/* Save operations (atomic via backend) */
+async function saveActiveTab(){
+  if(!activeTab){ log("No active tab"); return; }
+  const content = cmEditor ? cmEditor.getValue() : fallbackEditor.textContent;
+  const payload = { path: activeTab.path, content };
+  const r = await apiFetch("/api/write", { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(payload) });
+  if(!r.ok){ log("Save failed: " + (r.json && r.json.error) ); return; }
+  activeTab.dirty = false;
+  activeTab.content = content;
+  renderTabs();
+  log("Saved " + activeTab.path);
+  // update explorer mtime by triggering a lightweight refresh
+  scheduleExplorerRefresh(100);
+}
+
+/* Save + run helpers */
+async function saveAndRun(){
+  if(!activeTab){ log("No active tab"); return; }
+  await saveActiveTab();
+  runFile(activeTab.path);
+}
+
+/* -------------------------
+   Run & streaming (SSE stream)
+   ------------------------- */
+async function runFile(path){
+  log("Running: " + path);
+  const payload = { path };
+  const r = await apiFetch("/api/run", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(payload) });
+  if(!r.ok){ log("Run failed: " + (r.json && r.json.error) ); return; }
+  if(r.json.stdout) log("[stdout]\n" + r.json.stdout.trim());
+  if(r.json.stderr) log("[stderr]\n" + r.json.stderr.trim());
+  log("Exit code: " + r.json.exit_code);
+}
+
+function runFileStream(path){
+  log("Streaming run: " + path);
+  const url = API_ROOT.replace(/\/$/,"") + "/run_stream?path=" + encodeURIComponent(path);
+  const finalUrl = API_TOKEN ? url + "&api_key=" + encodeURIComponent(API_TOKEN) : url;
+  const es = new EventSource(finalUrl);
+  es.onmessage = (ev)=> {
+    try {
+      const obj = JSON.parse(ev.data);
+      if(obj.type === "stdout") log("[out] " + obj.line);
+      else if(obj.type === "stderr") log("[err] " + obj.line);
+      else if(obj.type === "exit") { log("[exit] code=" + obj.code); es.close(); }
+    } catch(e) { console.warn("sse parse", e); }
+  };
+  es.onerror = (e)=> { log("[stream error] " + e); es.close(); };
+}
+
+/* -------------------------
+   File context actions (create/rename/delete/copy)
+   ------------------------- */
+function fileContextMenu(path,isDir,x,y){
+  const action = prompt(`Actions for ${path}\nType: open | newfile | newdir | rename | delete | copy`, "open");
+  if(!action) return;
+  const cmd = action.toLowerCase();
+  if(cmd==="open") openFile(path);
+  else if(cmd==="newfile"){
+    const name = prompt("New file name (relative to this dir):", "new.txt");
+    if(!name) return;
+    const full = (isDir ? path + "/" + name : path.replace(/\/[^\/]+$/,"/") + name);
+    apiFetch("/api/create", { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({path: full, type:"file"}) }).then(res=>{
+      if(res.ok) { log("Created " + full); loadExplorer("."); openFile(full); } else log("Create fail: " + (res.json && res.json.error));
+    });
+  } else if(cmd==="newdir"){
+    const name = prompt("New dir name (inside):", "newdir");
+    if(!name) return;
+    const full = (isDir ? path + "/" + name : path.replace(/\/[^\/]+$/,"/") + name);
+    apiFetch("/api/create", { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({path: full, type:"dir"}) }).then(res=>{
+      if(res.ok) { log("Created dir " + full); loadExplorer("."); } else log("Create dir fail: " + (res.json && res.json.error));
+    });
+  } else if(cmd==="rename"){
+    const dst = prompt("Rename to (full relative path):", path.replace(/[^\/]+$/,"renamed.txt"));
+    if(!dst) return;
+    apiFetch("/api/rename", { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({src: path, dst}) }).then(res=>{
+      if(res.ok) { log("Renamed"); loadExplorer("."); } else log("Rename fail: " + (res.json && res.json.error));
+    });
+  } else if(cmd==="delete"){
+    if(confirm("Delete " + path + " ?")) {
+      apiFetch("/api/delete", { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({path}) }).then(res=>{
+        if(res.ok) { log("Deleted"); loadExplorer("."); } else log("Delete fail: " + (res.json && res.json.error));
+      });
+    }
+  } else if(cmd==="copy"){
+    const dst = prompt("Copy to (full relative path):", path + ".copy");
+    if(!dst) return;
+    apiFetch("/api/copy", { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({src:path, dst}) }).then(res=>{
+      if(res.ok) { log("Copied"); loadExplorer("."); } else log("Copy fail: " + (res.json && res.json.error));
+    });
+  } else log("Unknown action");
+}
+
+/* -------------------------
+   UI wiring (buttons, connect, console)
+   ------------------------- */
+document.getElementById("btn-connect").onclick = async function(){
+  const root = prompt("API root URL (http://127.0.0.1:8765)", API_ROOT);
+  if(!root) return;
+  API_ROOT = root.replace(/\/$/,"");
+  localStorage.setItem("APONI_API_ROOT", API_ROOT);
+  let token = prompt("API token (leave blank if server has none):", API_TOKEN || "");
+  if(token !== null) { API_TOKEN = token; sessionStorage.setItem("APONI_TOKEN", API_TOKEN); }
+  setServerInfo();
+  await initAfterConnect();
+};
+
+async function initAfterConnect(){
+  setServerInfo();
+  const r = await apiFetch("/api/list?path=.");
+  if(!r.ok){ log("Connection test failed: " + (r.error || (r.json && r.json.error))); return; }
+  log("Connected to Aponi server.");
+  loadExplorer(".");
+  addRecentChange(".", Math.floor(Date.now()/1000));
+  startFsWatcher();
+  updateKPIs();
+}
+
+document.getElementById("save-btn").onclick = saveActiveTab;
+document.getElementById("save-run-btn").onclick = saveAndRun;
+document.getElementById("run").onclick = function(){ if(activeTab) runFile(activeTab.path); else log("Open a file first."); };
+document.getElementById("new-btn").onclick = async ()=>{
+  const name = prompt("New file name (relative to root):","Aponi/new_file.py");
+  if(!name) return;
+  const r = await apiFetch("/api/create", { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({path: name, type:"file"}) });
+  if(r.ok) { log("Created " + name); loadExplorer("."); openFile(name); }
+  else log("Create failed: " + (r.json && r.json.error));
+};
+
+// console-in behavior
+document.getElementById("console-in").addEventListener("keydown", function(e){
+  if(e.key === "Enter"){
+    const v = this.value.trim(); this.value = "";
+    log("$ " + v);
+    if(v.startsWith("run ")){ const p = v.slice(4).trim(); runFile(p); }
+    else if(v.startsWith("stream ")){ const p = v.slice(7).trim(); runFileStream(p); }
+    else if(v === "ls"){ loadExplorer("."); }
+    else log("Unknown command: " + v);
+  }
+});
+
+// KPIs
+async function updateKPIs(){
+  document.getElementById("kpi-ts").textContent = new Date().toLocaleTimeString();
+  const r = await apiFetch("/api/read?path=metrics.json");
+  if(r.ok && r.json && typeof r.json.content === "string"){
+    try{
+      const m = JSON.parse(r.json.content || "{}");
+      document.getElementById("kpi-agents").textContent = m.agent_count || (m.agents && m.agents.length) || "—";
+      document.getElementById("kpi-cycles").textContent = m.cycles || "—";
+      document.getElementById("kpi-cpu").textContent = m.cpu || "—";
+      document.getElementById("recent").textContent = (m.recent || "—").toString();
+    }catch(e){}
+  }
+  // schedule again at low frequency
+  setTimeout(updateKPIs, 5000);
+}
+
+/* auto-init: try default root */
+(async function(){
+  setServerInfo();
+  // deferred editor init already scheduled
+  try {
+    const r = await apiFetch("/api/list?path=.");
+    if(r.ok) { log("Auto-connected to default server"); await initAfterConnect(); }
+  } catch(e){}
+})();
+
+/* visibility-aware polling throttle */
+document.addEventListener('visibilitychange', ()=> {
+  if(document.hidden){
+    // reduce polling
+    pollIntervalMs = 15000;
+  } else {
+    pollIntervalMs = 4000;
+  }
+});
+
+</script>
+<script type="module" src="static/js/aponi_main.js">

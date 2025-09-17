@@ -1,0 +1,111 @@
+{
+  "anchor_usd": 14000000,
+  "history": [
+    {
+      "agent_count": 2,
+      "avg_score": 10.0,
+      "beast_cycles": 0.0,
+      "estimate": 16016000,
+      "ts": 1755874581.8289487
+    },
+    {
+      "agent_count": 2,
+      "avg_score": 10.0,
+      "beast_cycles": 0.0,
+      "estimate": 16016000,
+      "ts": 1755874599.2674208
+    },
+    {
+      "agent_count": 3,
+      "avg_score": 10.0,
+      "beast_cycles": 0.0,
+      "estimate": 16324000,
+      "ts": 1755874615.3443527
+    },
+    {
+      "agent_count": 3,
+      "avg_score": 19.666666666666668,
+      "beast_cycles": 0.0,
+      "estimate": 17758533,
+      "ts": 1755874619.869048
+    },
+    {
+      "agent_count": 3,
+      "avg_score": 19.666666666666668,
+      "beast_cycles": 0.0,
+      "estimate": 17758533,
+      "ts": 1755874619.953378
+    },
+    {
+      "agent_count": 3,
+      "avg_score": 19.666666666666668,
+      "beast_cycles": 0.0,
+      "estimate": 17758533,
+      "ts": 1755874652.565372
+    },
+    {
+      "agent_count": 3,
+      "avg_score": 19.666666666666668,
+      "beast_cycles": 0.0,
+      "estimate": 17758533,
+      "ts": 1755874660.2965257
+    },
+    {
+      "agent_count": 3,
+      "avg_score": 19.666666666666668,
+      "beast_cycles": 0.0,
+      "estimate": 17758533,
+      "ts": 1755874684.3099597
+    },
+    {
+      "agent_count": 3,
+      "avg_score": 19.666666666666668,
+      "beast_cycles": 0.0,
+      "estimate": 17758533,
+      "ts": 1755874690.0769176
+    },
+    {
+      "agent_count": 3,
+      "avg_score": 19.666666666666668,
+      "beast_cycles": 0.0,
+      "estimate": 17758533,
+      "ts": 1755874712.0014517
+    },
+    {
+      "agent_count": 3,
+      "avg_score": 19.666666666666668,
+      "beast_cycles": 0.0,
+      "estimate": 17758533,
+      "ts": 1755874719.672541
+    },
+    {
+      "agent_count": 3,
+      "avg_score": 19.666666666666668,
+      "beast_cycles": 0.0,
+      "estimate": 17758533,
+      "ts": 1755874739.8414454
+    },
+    {
+      "agent_count": 3,
+      "avg_score": 19.666666666666668,
+      "beast_cycles": 0.0,
+      "estimate": 17758533,
+      "ts": 1755875523.3443134
+    },
+    {
+      "agent_count": 3,
+      "avg_score": 19.666666666666668,
+      "beast_cycles": 0.0,
+      "estimate": 17758533,
+      "ts": 1755875848.7002275
+    },
+    {
+      "agent_count": 3,
+      "avg_score": 19.666666666666668,
+      "beast_cycles": 0.0,
+      "estimate": 17758533,
+      "ts": 1755875902.44531
+    }
+  ],
+  "last_estimate": 17758533
+}

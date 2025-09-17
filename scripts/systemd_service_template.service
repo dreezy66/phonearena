@@ -1,0 +1,13 @@
+[Unit]
+Description=ADAAD Aponi Dashboard
+After=network.target
+
+[Service]
+Type=simple
+User=youruser
+WorkingDirectory=%h/ADAAD/Aponi
+ExecStart=/usr/bin/python3 phonearena_dashboard.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
